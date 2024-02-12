@@ -9,7 +9,8 @@ class ProductController extends Controller
 {
     //FIRST PUBLIC FUNCTION FOR THE TRIAL
     public function index(){
-        return view('products/index');
+        $result = Product::all();
+        return view('products/index', ['result'=> $result]);
     }
 
 
@@ -30,5 +31,10 @@ class ProductController extends Controller
       $newproduct = Product::create($request);
 
       return redirect(route('product.index'));
+    }
+
+    public function fetchProduct($id){
+        $product = Product::find($id);
+        return view('products/view', ['product' =>$product ]);
     }
 }
