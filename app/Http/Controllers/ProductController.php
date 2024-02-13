@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -36,5 +37,27 @@ class ProductController extends Controller
     public function fetchProduct($id){
         $product = Product::find($id);
         return view('products/view', ['product' =>$product ]);
+    }
+
+    public function updateProduct(Request $request, $id){
+        $request = $request-> validate([
+            'name' => 'required',
+            'qty'=> 'required|numeric',
+            'price' => 'required|numeric',
+            'description' =>'required'
+          ]);
+
+          //$request->update($request);
+
+          $request = DB::table('products')->where('id', $id)->update([
+            'name' => $request['name'],
+            'qty' => $request['qty'],
+            'price' => $request['qty'],
+            'description' => $request['description']
+          ]);
+
+          if($request){
+            return redirect('product/index')->with('success', 'product has been updates successfully');
+          }
     }
 }
