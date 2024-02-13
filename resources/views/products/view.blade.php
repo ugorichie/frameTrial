@@ -6,7 +6,8 @@
     <title>to view</title>
 </head>
 <body>
-    <form action=""  method="POST">
+    <form action="{{route('product/product.update', ['id'=> $product->id])}}" method="post">
+        @method("put")
         @csrf
         <div>
             @if ($errors->any())
@@ -30,7 +31,7 @@
 
             <label for="description"> DESCRIPTION</label>
             <input type="text" name="description" placeholder="DESCRIPTION" value="{{$product->description}}"> <br> <br>
-            <button type="submit"> POST </button>
+            <button type="submit"> UPDATE </button>
         </div>
 </form>
 </body>

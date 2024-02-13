@@ -10,7 +10,11 @@
     <span>want to create products? </span>
     <form action="{{Route('product.create')}}" method="post">
     @csrf
-    <button> CLICK HERE </button>
+    <button> CLICK HERE </button><br>
+
+    @if (session()->has('success'))
+        {{session('success')}}
+    @endif
     </form>
     <div>
         <h3>
@@ -37,8 +41,17 @@
                     <td>{{$item->price}} </td>
                     <td> {{$item->description}}</td>
                     <td> <a href="product/{{$item->id}}/edit"> edit </a></td>
-                        
-                </tr>
+                    <td> 
+                        <form action="{{Route('product/product.delete', ['id'=> $item])}}" method="post"> 
+                            @csrf
+                            <button> DELETE</button>
+                        </form>
+                    </td>
+                   
+                </tr> 
+                {{-- THESE TWO BELOW CAN BE USED IN THE 'href' TO ROUTE APPROPRIATELY --}}
+                {{-- {{route('product/product-edit', ['id' => $item])}} --}}
+                {{-- product/{{$item->id}}/edit --}}
                     @endforeach
             </tbody>
         </table>

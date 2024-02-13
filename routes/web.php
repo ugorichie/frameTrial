@@ -22,5 +22,6 @@ Route::get('/', function () {
 Route::get('product', [ProductController::class, 'index'])->name('product.index');
 Route::any('product/create', [ProductController::class, 'create'])->name('product.create');
 Route::post('product/create-post', [ProductController::class, 'create_post'])->name('product/create-post');
-Route::any('product/{id}/edit', [ProductController::class, 'fetchProduct'])->name('product/product-edit');
-Route::any('product/{id}/edit', [ProductController::class, 'updateProduct'])->name('product/product.update');
+Route::get('product/{id}/edit', [ProductController::class, 'fetchProduct'])->name('product/product-edit');
+Route::put('product/{id}/update', [ProductController::class, 'updateProduct'])->name('product/product.update');
+Route::any('product/{id}/delete', [ProductController::class, 'deleteProduct'])->name('product/product.delete');

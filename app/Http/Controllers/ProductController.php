@@ -10,8 +10,8 @@ class ProductController extends Controller
 {
     //FIRST PUBLIC FUNCTION FOR THE TRIAL
     public function index(){
-        $result = Product::all();
-        return view('products/index', ['result'=> $result]);
+        $results = Product::all();
+        return view('products/index', ['result'=> $results]);
     }
 
 
@@ -20,8 +20,6 @@ class ProductController extends Controller
     }
 
     public function create_post(Request $request){
-       // return view('products/create');
-      // dd($request->name);
       $request = $request-> validate([
         'name' => 'required',
         'qty'=> 'required|numeric',
@@ -34,9 +32,10 @@ class ProductController extends Controller
       return redirect(route('product.index'));
     }
 
-    public function fetchProduct($id){
-        $product = Product::find($id);
-        return view('products/view', ['product' =>$product ]);
+    public function fetchProduct( $id){
+         $product = Product::find($id);
+        //dd ($product);
+        return view('products/view', ['product' => $product ]);
     }
 
     public function updateProduct(Request $request, $id){
@@ -48,7 +47,7 @@ class ProductController extends Controller
           ]);
 
           //$request->update($request);
-
+          
           $request = DB::table('products')->where('id', $id)->update([
             'name' => $request['name'],
             'qty' => $request['qty'],
@@ -57,7 +56,15 @@ class ProductController extends Controller
           ]);
 
           if($request){
-            return redirect('product/index')->with('success', 'product has been updates successfully');
+            return redirect('product')->with('success', 'product has been updates successfully');
           }
     }
+
+    public function deleteProduct(Request $request, $id){
+        $request = db::table('products')->where('id', $id)->delete();
+        if($request){
+        return redirect('product')->with('success', 'product has been deleted successfully');
+        }
+    }
+
 }
