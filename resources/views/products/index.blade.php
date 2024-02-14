@@ -50,7 +50,7 @@
                    
                 </tr> 
                 {{-- THESE TWO BELOW CAN BE USED IN THE 'href' TO ROUTE APPROPRIATELY --}}
-                {{-- {{route('product/product-edit', ['id' => $item])}} --}}
+                {{-- {{route('product/product-edit', ['id' => $item])}} ---- the item in this case if fetched from the db --}}
                 {{-- product/{{$item->id}}/edit --}}
                     @endforeach
             </tbody>
